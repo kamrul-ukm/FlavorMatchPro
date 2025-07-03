@@ -1,0 +1,14 @@
+
+.user-info.data-v-0be17cc6 {
+	text-align: center;
+	margin-top: 20px;
+}
+.nickname.data-v-0be17cc6 {
+	margin-top: 10px;
+	font-size: 18px;
+	color: #333;
+}
+u-list-item.data-v-0be17cc6 {
+	margin-top: 10px;
+}
+
