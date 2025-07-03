@@ -19,8 +19,8 @@
 			<!-- 性别 -->
 			<u-form-item label="GENDER" label-width="85" required>
 				<u-radio-group v-model="user.sex">
-					<u-radio label="男" name="男">MALE</u-radio>
-					<u-radio label="女" name="女">FEMALE</u-radio>
+					<u-radio label="MALE" name="MALE">MALE</u-radio>
+					<u-radio label="FEMALE" name="FEMALE">FEMALE</u-radio>
 				</u-radio-group>
 			</u-form-item>
 

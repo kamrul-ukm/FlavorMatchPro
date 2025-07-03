@@ -1,17 +1,18 @@
 <template>
+
   <div class="login-wrap">
     <el-form label-position="left" :model="loginForm"  label-width="0px" :rule="rules" ref="loginForm"
              class="demo-ruleForm login-container">
-      <h3 class="title"> Backstage Management </h3>
+      <h3 class="title">FMP Backstage Management</h3>
       <el-form-item prop="username">
-        <el-input type="text" v-model="loginForm.account" auto-complete="off" placeholder="Account"></el-input>
+        <el-input type="text" v-model="loginForm.account" auto-complete="off" placeholder="MANAGER ACCOUNT"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="Password"></el-input>
+        <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="MANAGER PASSWORD"></el-input>
       </el-form-item>
 
       <el-form-item style="width:100%;">
-        <el-button type="primary" style="width:100%; background-color: #FF8C00; border-color: #FF8C00;" @click="submitForm()" :loading="logining">Login</el-button>
+        <el-button type="primary" style="width:100%; background-color: #FF8C00; border-color: #FF8C00;" @click="submitForm()" :loading="logining">LOG IN</el-button>
       </el-form-item>
     </el-form>
 
@@ -34,11 +35,11 @@ export default {
       rules: {
         account: [
           {required: true, message: '请输入账号', trigger: 'blur'},
-          {min: 1, max: 30, message: '长度在 1 到 30 个字符', trigger: 'blur'}
+          {min: 1, max: 15, message: '长度在 1 到 15 个字符', trigger: 'blur'}
         ],
         password: [
           {required: true, message: '请输入密码', trigger: 'blur'},
-          {min: 1, max: 30, message: '长度在 1 到 30 个字符', trigger: 'blur'}
+          {min: 1, max: 15, message: '长度在 1 到 15 个字符', trigger: 'blur'}
         ]
       }
     }
@@ -73,7 +74,7 @@ export default {
             that.$router.push({path: '/admin/home'})
           } else {
             this.$message({
-              message: '请检查账号或者密码',
+              message: 'Please check your M-ACCOUNT or M-PASSWORD',
               type: 'warning'
             })
             this.logining = false;

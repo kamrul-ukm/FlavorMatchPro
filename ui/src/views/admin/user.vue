@@ -9,18 +9,18 @@
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="searchForm" class="search-form">
       <el-form-item label="">
-        <el-input size="small" v-model="searchForm.nickname" placeholder="输入昵称"></el-input>
+        <el-input size="small" v-model="searchForm.nickname" placeholder="ENTER USERNAME"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索
+        <el-button size="small" type="primary" icon="el-icon-search" @click="search">SEARCH
         </el-button>
       </el-form-item>
     </el-form>
 
     <!--按钮-->
     <el-row style="margin: 10px auto">
-      <el-button type="success" size="mini" @click=update() icon="el-icon-plus">新增</el-button>
-      <el-button size="mini" @click="deleteBatch()" icon="el-icon-delete" type="danger">删除</el-button>
+      <el-button type="success" size="mini" @click=update() icon="el-icon-plus">ADD</el-button>
+      <el-button size="mini" @click="deleteBatch()" icon="el-icon-delete" type="danger">DELETE</el-button>
     </el-row>
 
     <!--列表-->
@@ -33,49 +33,54 @@
         width="55">
       </el-table-column>
 
-      <el-table-column align="center" sortable prop="img" label="图片">
+      <el-table-column align="center" sortable prop="img" label="PIC">
         <template slot-scope="scope">
           <el-image style="width: 100px; height: 100px" :src="$api + 'file/' + scope.row.img"
                     fit="fit"></el-image>
         </template>
       </el-table-column>
-      <el-table-column align="center" sortable prop="account" label="用户名"></el-table-column>
+      <el-table-column align="center" sortable prop="account" label="ACCOUNT"></el-table-column>
 
 
-      <el-table-column align="center" sortable prop="nickname" label="昵称">
+      <el-table-column align="center" sortable prop="nickname" label="USERNAME">
       </el-table-column>
 
-      <el-table-column align="center" sortable prop="password" label="密码">
+      <el-table-column align="center" sortable prop="password" label="PASSWORD">
         <template slot-scope="scope">
           ******
         </template>
       </el-table-column>
 
-      <el-table-column align="center" sortable prop="sex" label="性别">
+      <el-table-column align="center" sortable prop="sex" label="GENDER">
       </el-table-column>
 
-      <el-table-column align="center" sortable prop="phone" label="电话">
+      <el-table-column align="center" sortable prop="phone" label="PHONE">
       </el-table-column>
 
-      <el-table-column align="center" sortable prop="address" label="地址">
+      <el-table-column align="center" sortable prop="address" label="ADDRESS">
       </el-table-column>
 
-      <el-table-column align="center" sortable prop="role" label="角色"></el-table-column>
-      <el-table-column align="center" sortable prop="remark" label="备注"></el-table-column>
+      <el-table-column align="center" sortable prop="role" label="ROLE"></el-table-column>
+      <el-table-column align="center" sortable prop="remark" label="REMARK"></el-table-column>
 
 
-      <el-table-column label="操作" min-width=120>
+      <el-table-column label="EDIT" min-width=120>
         <template slot-scope="scope">
 
           <el-button size="mini" @click="update(scope.row)" icon="el-icon-edit" type="primary"
-                     v-if="scope.row.role != 'admin' || loginUserId == scope.row.id">修改
+                     v-if="scope.row.role != 'admin' || loginUserId == scope.row.id"
+                     style="padding: 10px 29px;">EDIT
           </el-button>
+          <br/>
           <el-button size="mini" @click="deleteData(scope.row.id)" icon="el-icon-delete" type="danger"
-                     v-if="scope.row.role != 'admin' || loginUserId == scope.row.id">删除
+                     v-if="scope.row.role != 'admin' || loginUserId == scope.row.id"
+                     style="padding: 10px 20px;">DELETE
           </el-button>
         </template>
       </el-table-column>
     </el-table>
+
+
     <!-- 分页组件 -->
     <el-pagination
       style="margin-top: 10px"
@@ -88,12 +93,15 @@
       :page-sizes="[5, 10, 20, 50]"
       :total="total">
     </el-pagination>
+
+
+
     <!-- 编辑界面 -->
-    <el-dialog :title="editForm.id != undefined ? '修改' : '添加'" :visible.sync="editFormVisible" width="30%"
+    <el-dialog :title="editForm.id != undefined ? 'EDIT' : 'ADD'" :visible.sync="editFormVisible" width="30%"
                @close='closeDialog()'>
       <el-form label-width="130px" ref="editForm" :model="editForm" :rules="rules">
 
-        <el-form-item label="图片" prop="img">
+        <el-form-item label="PIC" prop="img">
           <el-upload class="avatar-uploader" :action='$api + "file/upload"' :show-file-list="false"
                      :on-success="handleAvatarSuccess">
             <img v-if="editForm.img" :src="$api + 'file/' + editForm.img" class="avatar" width="200">
@@ -101,50 +109,46 @@
           </el-upload>
         </el-form-item>
 
-
-        <el-form-item label="用户名" prop="account">
+        <el-form-item label="ACCOUNT" prop="account">
           <el-input size="small" v-model="editForm.account" auto-complete="off"></el-input>
         </el-form-item>
 
-
-        <el-form-item label="昵称" prop="nickname">
+        <el-form-item label="USERNAME" prop="nickname">
           <el-input size="small" v-model="editForm.nickname" auto-complete="off"></el-input>
         </el-form-item>
 
-        <el-form-item label="密码">
+        <el-form-item label="PASSWORD">
           <el-input size="small" v-model="editForm.password" auto-complete="off"></el-input>
         </el-form-item>
 
-        <el-form-item label="性别" prop="sex">
-          <el-radio v-model="editForm.sex" label="男">男</el-radio>
-          <el-radio v-model="editForm.sex" label="女">女</el-radio>
+        <el-form-item label="GENDER" prop="sex">
+          <el-radio v-model="editForm.sex" label="MALE">MALE</el-radio>
+          <el-radio v-model="editForm.sex" label="FEMALE">FEMALE</el-radio>
         </el-form-item>
 
-
-        <el-form-item label="电话" prop="phone">
+        <el-form-item label="PHONE" prop="phone">
           <el-input size="small" v-model="editForm.phone" auto-complete="off"></el-input>
         </el-form-item>
 
-        <el-form-item label="地址" prop="address">
+        <el-form-item label="ADDRESS" prop="address">
           <el-input size="small" v-model="editForm.address" auto-complete="off"></el-input>
         </el-form-item>
 
-        <el-form-item label="备注" prop="remark">
+        <el-form-item label="REMARK" prop="remark">
           <el-input size="small" v-model="editForm.remark" auto-complete="off"></el-input>
         </el-form-item>
 
-        <el-form-item label="角色" prop="role">
-          <el-radio v-model="editForm.role" label="user">用户</el-radio>
-          <el-radio v-model="editForm.role" label="chushi">厨师</el-radio>
-          <el-radio v-model="editForm.role" label="admin">管理员</el-radio>
+        <el-form-item label="ROLE" prop="role">
+          <el-radio v-model="editForm.role" label="user">USER</el-radio>
+          <el-radio v-model="editForm.role" label="chushi">STAFF</el-radio>
+          <el-radio v-model="editForm.role" label="admin">MANAGER</el-radio>
         </el-form-item>
-
 
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button size="small" @click='closeDialog()'>取消
+        <el-button size="small" @click='closeDialog()'>CANCEL
         </el-button>
-        <el-button size="small" type="primary" :loading="loading" class="title" @click="updateData()">保存
+        <el-button size="small" type="primary" :loading="loading" class="title" @click="updateData()">SAVE
         </el-button>
       </div>
     </el-dialog>
@@ -172,22 +176,18 @@ export default {
       multipleSelection: [],
       rules: {
         account: [
-          {required: true, message: '请输入账号', trigger: 'blur'},
-          {min: 1, max: 30, message: '长度在 1 到 30 个字符', trigger: 'blur'}
+          {required: true, message: 'ENTER ACCOUNT', trigger: 'blur'},
+          {min: 1, max: 15, message: '长度在 1 到 15 个字符', trigger: 'blur'}
         ],
         nickname: [
-          {required: true, message: '请输入名字', trigger: 'blur'},
-          {min: 1, max: 30, message: '长度在 1 到 30 个字符', trigger: 'blur'}
+          {required: true, message: 'ENTER USERNAME', trigger: 'blur'},
+          {min: 1, max: 15, message: '长度在 1 到 15 个字符', trigger: 'blur'}
         ],
         sex: [
-          {required: true, message: '请填写性别', trigger: 'blur'}
-        ],
-        email: [
-          {required: true, message: '请填写邮箱', trigger: 'blur'},
-          {validator: this.$validationUtils.validateEmail, trigger: "blur"}
+          {required: true, message: 'CHOOSE GENDER', trigger: 'blur'}
         ],
         phone: [
-          {required: true, message: '请填写电话', trigger: 'blur'},
+          {required: true, message: 'ENTER PHONE', trigger: 'blur'},
           {validator: this.$validationUtils.validatePhone, trigger: "blur"}
         ],
 
@@ -219,7 +219,7 @@ export default {
             this.getData()
             this.$message({
               type: 'success',
-              message: '操作成功！'
+              message: 'ALL DELETE successfully!'
             })
           } else {
             this.$message({
@@ -307,7 +307,7 @@ export default {
               this.getData()
               this.$message({
                 type: 'success',
-                message: '操作成功！'
+                message: 'SAVE successfully!'
               })
             } else {
               this.$message({
@@ -333,7 +333,7 @@ export default {
             this.getData()
             this.$message({
               type: 'success',
-              message: '操作成功！'
+              message: 'DELETE successfully!'
             })
           } else {
             this.$message({

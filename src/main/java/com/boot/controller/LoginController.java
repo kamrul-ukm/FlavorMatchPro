@@ -1,6 +1,5 @@
 package com.boot.controller;
 
-import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.boot.bean.R;
 import com.boot.entity.User;
@@ -9,7 +8,6 @@ import com.boot.util.AESUtil;
 import com.boot.util.JwtUtils;
 import com.boot.vo.LoginVO;
 import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -63,7 +61,6 @@ public class LoginController {
         return R.ok();
 
     }
-
 
     @GetMapping("info")
     public R info(HttpServletRequest request) {

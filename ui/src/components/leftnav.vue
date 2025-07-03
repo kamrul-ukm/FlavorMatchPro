@@ -6,7 +6,7 @@
           <div>
             <img src="../assets/img/logo.png" width="100px" height="100px"/>
           </div>
-          <h4>Food and beverage platform</h4>
+          <h4>FMP Backstage Management</h4>
         </div>
     <div v-for="menu in allmenu">
       <el-submenu :key="menu.menuid" :index="menu.menuname" v-if="menu.menus != null">
@@ -15,6 +15,7 @@
           <span>{{ menu.menuname }}</span>
         </template>
         <el-menu-item-group>
+
           <el-menu-item v-for="chmenu in menu.menus" :index="chmenu.url" :key="chmenu.menuid">
             <i :class="chmenu.icon"></i>
             <span>{{ chmenu.menuname }}</span>

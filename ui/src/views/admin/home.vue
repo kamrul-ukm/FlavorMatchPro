@@ -6,10 +6,9 @@
       <el-breadcrumb-item>Home</el-breadcrumb-item>
     </el-breadcrumb>
 
-
     <!-- 个人信息卡片 -->
     <el-card class="profile-card">
-      <h3 class="card-title">个人信息</h3>
+      <h3 class="card-title">PERSONAL INFORMATION</h3>
       <el-row :gutter="20">
         <el-col :span="6" class="avatar-container">
           <el-upload class="avatar-uploader" :action="$api + 'file/upload'" :show-file-list="false" :on-success="handleAvatarSuccess">
@@ -18,35 +17,35 @@
           </el-upload>
         </el-col>
         <el-col :span="18">
-          <el-descriptions title="用户信息" :column="2" border>
-            <el-descriptions-item label="用户名">{{ editForm.account }}</el-descriptions-item>
-            <el-descriptions-item label="昵称">{{ editForm.nickname }}</el-descriptions-item>
-            <el-descriptions-item label="性别">{{ editForm.sex }}</el-descriptions-item>
-            <el-descriptions-item label="电话">{{ editForm.phone }}</el-descriptions-item>
+          <el-descriptions title="DETAILS" :column="2" border>
+            <el-descriptions-item label="ACCOUNT">{{ editForm.account }}</el-descriptions-item>
+            <el-descriptions-item label="USERNAME">{{ editForm.nickname }}</el-descriptions-item>
+            <el-descriptions-item label="GENDER">{{ editForm.sex }}</el-descriptions-item>
+            <el-descriptions-item label="PHONE">{{ editForm.phone }}</el-descriptions-item>
           </el-descriptions>
-          <el-button type="primary" class="edit-btn" @click="editMode = !editMode">编辑信息</el-button>
+          <el-button type="primary" class="edit-btn" @click="editMode = !editMode">EDIT</el-button>
         </el-col>
       </el-row>
 
       <!-- 编辑表单 -->
       <el-form v-if="editMode" label-width="130px" :model="editForm" class="edit-form">
-        <el-form-item label="昵称">
+        <el-form-item label="USERNAME">
           <el-input size="small" v-model="editForm.nickname"></el-input>
         </el-form-item>
-        <el-form-item label="密码">
+        <el-form-item label="PASSWORD">
           <el-input size="small" v-model="editForm.password" type="password"></el-input>
         </el-form-item>
-        <el-form-item label="性别">
+        <el-form-item label="GENDER">
           <el-input size="small" v-model="editForm.sex"></el-input>
         </el-form-item>
-        <el-form-item label="电话">
+        <el-form-item label="PHONE">
           <el-input size="small" v-model="editForm.phone"></el-input>
         </el-form-item>
-        <el-form-item label="备注">
+        <el-form-item label="REMARK">
           <el-input size="small" v-model="editForm.remark"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="updateData()">保存修改</el-button>
+          <el-button type="primary" @click="updateData()">SAVE</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -92,7 +91,7 @@ export default {
       this.$axios.post("/user", this.editForm).then(res => {
         if (res.code === 200) {
           this.getData();
-          this.$message.success("修改成功！");
+          this.$message.success("SAVE successfully");
           this.editMode = false;
         } else {
           this.$message.info("修改失败");

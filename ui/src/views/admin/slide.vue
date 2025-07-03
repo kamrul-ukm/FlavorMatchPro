@@ -41,7 +41,6 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="name" label="名称"></el-table-column>
 
-
       <el-table-column label="操作" min-width=120>
         <template slot-scope="scope">
           <el-button size="mini" @click="update(scope.row)" icon="el-icon-edit" type="primary">修改
@@ -51,6 +50,7 @@
         </template>
       </el-table-column>
     </el-table>
+
     <!-- 分页组件 -->
     <el-pagination
       style="margin-top: 10px"
@@ -63,6 +63,8 @@
       :page-sizes="[5, 10, 20, 50]"
       :total="total">
     </el-pagination>
+
+
     <!-- 编辑界面 -->
     <el-dialog :title="editForm.id != undefined ? '添加' : '修改'" :visible.sync="editFormVisible" width="30%"
                @close='closeDialog()'>
@@ -76,11 +78,9 @@
           </el-upload>
         </el-form-item>
 
-
         <el-form-item label="名称" prop="name">
           <el-input size="small" v-model="editForm.name" auto-complete="off"></el-input>
         </el-form-item>
-
 
       </el-form>
       <div slot="footer" class="dialog-footer">

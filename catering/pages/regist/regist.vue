@@ -24,8 +24,8 @@
 			<!-- 性别 -->
 			<u-form-item label="GENDER" label-width="85">
 				<u-radio-group v-model="loginForm.sex">
-					<u-radio label="男" name="男">MALE</u-radio>
-					<u-radio label="女" name="女">FEMALE</u-radio>
+					<u-radio label="MALE" name="MALE">MALE</u-radio>
+					<u-radio label="FEMALE" name="FEMALE">FEMALE</u-radio>
 				</u-radio-group>
 			</u-form-item>
 
@@ -37,7 +37,7 @@
 		
 
 
-			<u-button type="primary" block @click="handleLogin">REGISTER</u-button>
+			<u-button type="primary" block @click="handleLogin" :custom-style="{backgroundColor: 'orange', color: '#fff'}">REGISTER</u-button>
 
 			<view class="register-link">
 				<u-text @click="goToRegister" text="Have an account? Log in"></u-text>
