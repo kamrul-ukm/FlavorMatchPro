@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "u-swiper": "/uni_modules/uview-ui/components/u-swiper/u-swiper",
-    "u-text": "/uni_modules/uview-ui/components/u-text/u-text",
-    "u-image": "/uni_modules/uview-ui/components/u-image/u-image"
-  }
-}
