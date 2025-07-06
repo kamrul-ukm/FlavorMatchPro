@@ -3,21 +3,22 @@
 		<!-- 头像 -->
 		<view class="avatar-section">
 			<u-avatar :src="user.avatar" size="100" />
-			<u-button @click="chooseAvatar" type="primary" size="small" style="margin-top: 10px;">更换头像</u-button>
+			<u-button @click="chooseAvatar" 
+			type="primary" size="small" style="width: 150rpx; height: 60rpx; font-size: 30rpx; margin-top: 10px;">Edit PIC</u-button>
 		</view>
 
 		<!-- 用户信息表单 -->
 		<u-form :model="user" @submit="submitForm" labelWidth="120rpx">
-			<u-form-item label="ACCOUNT" required>
+			<u-form-item label="ACCOUNT" label-width="85">
 				<u-input v-model="user.account" disabled />
 			</u-form-item>
 			<!-- 昵称 -->
-			<u-form-item label="USERNAME" label-width="85" required>
+			<u-form-item label="USERNAME" label-width="85">
 				<u-input v-model="user.nickname" placeholder="Enter your USERNAME" />
 			</u-form-item>
 
 			<!-- 性别 -->
-			<u-form-item label="GENDER" label-width="85" required>
+			<u-form-item label="GENDER" label-width="85">
 				<u-radio-group v-model="user.sex">
 					<u-radio label="MALE" name="MALE">MALE</u-radio>
 					<u-radio label="FEMALE" name="FEMALE">FEMALE</u-radio>
@@ -25,21 +26,18 @@
 			</u-form-item>
 
 			<!-- 手机号 -->
-			<u-form-item label="PHONE NUMBER" label-width="85" required>
+			<u-form-item label="PHONE NUMBER" label-width="85">
 				<u-input v-model="user.phone" placeholder="Enter your PHONE" />
 			</u-form-item>
 
-	
-
 			<!-- 地址 -->
-			<u-form-item label="ADDRESS" label-width="85" required>
+			<u-form-item label="ADDRESS" label-width="85">
 				<u-input v-model="user.address" placeholder="Enter your ADDRESS" />
 			</u-form-item>
 
-
 			<!-- 提交按钮 -->
 			<u-form-item>
-				<u-button type="primary" @click="submitForm">SAVE</u-button>
+				<u-button type="primary" @click="submitForm" style="width: 400rpx; height: 60rpx; font-size: 30rpx;">SAVE</u-button>
 			</u-form-item>
 		</u-form>
 	</view>
@@ -96,7 +94,7 @@
 									this.user.img = data.data
 									console.log(this.user.avatar)
 									uni.showToast({
-										title: '头像更新成功',
+										title: 'SUCCESS!',
 										icon: 'success'
 									});
 								}
@@ -111,7 +109,7 @@
 				uni.$u.http.post("/user", this.user).then(res => {
 					if (res.code === 200) {
 						uni.showToast({
-							title: '信息修改成功',
+							title: 'SAVED!',
 							icon: 'success'
 						});
 						uni.setStorageSync("nickname", this.user.nickname)

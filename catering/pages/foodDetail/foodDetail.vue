@@ -2,11 +2,11 @@
 	<view class="detail-container">
 		<u-image :src="api + 'file/' + food.img" mode="aspectFill" width="100%" height="400rpx"></u-image>
 		<view class="detail-info">
-			<u-text :text="'名称：' + food.name" size="32rpx" bold></u-text>
-			<u-text :text="'描述：' + food.description" size="28rpx" margin="10rpx 0"></u-text>
-			<u-text :text="'价格：¥' + food.price" size="28rpx" color="#e64340"></u-text>
-			<u-text :text="'分类：' + (food.category ? food.category.remark : '')" size="26rpx" color="#666"></u-text>
-			<u-button type="success" size="medium" @click="addToCart">加入购物车</u-button>
+			<u-text :text="'FOOD NAME：' + food.name" color="#3c9cff" size="50rpx" bold></u-text>
+			<u-text :text="'DESCRIBE：' + food.description" size="30rpx" margin="10rpx 0"></u-text>
+			<u-text :text="'PRICE：RM' + food.price" size="30rpx" color="#e64340"></u-text>
+			<u-text :text="'CATEGORY：' + (food.category ? food.category.remark : '')" size="30rpx" color="#666"></u-text>
+			<u-button type="success" size="medium" @click="addToCart">ADD TO CART</u-button>
 		</view>
 	</view>
 </template>
@@ -33,7 +33,7 @@
 					foodId: this.food.id,
 					quantity: 1
 				}).then(() => {
-					uni.$u.toast('已加入购物车');
+					uni.$u.toast('SUCCESS!');
 				}).catch(() => {
 					uni.$u.toast('添加失败，请稍后重试');
 				});

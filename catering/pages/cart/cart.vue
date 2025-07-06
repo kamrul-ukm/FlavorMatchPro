@@ -1,9 +1,10 @@
 <template>
 	<view>
 
-		<u-text text="我的购物车" size="50rpx" align="center" margin="20rpx 0" />
-		<view v-if="carts.length === 0" class="empty-cart">
-			暂无购物车数据
+		<u-text text="MY CART" color="#FF8C00" align="center" size="70rpx" margin="20rpx 0" />
+		<view v-if="carts.length === 0" class="empty-cart" style="color: red;" align="center">
+			<br/>
+			. . . EMPTY CART
 		</view>
 
 		<view v-else class="cart-container">
@@ -11,7 +12,7 @@
 
 			<!-- 全选 -->
 			<view class="select-all">
-				<checkbox :checked="allChecked" @change="toggleAll" /> 全选
+				<checkbox :checked="allChecked" @change="toggleAll" /> ALL
 			</view>
 
 			<!-- 购物车列表 -->
@@ -22,63 +23,64 @@
 						height="100rpx" />
 					<view class="cart-info">
 						<view class="food-name">{{ item.food.name }}</view>
-						<view class="food-price">单价：¥{{ item.food.price }}</view>
+						<view class="food-price">PRICE: RM{{ item.food.price }}</view>
 						<view class="food-quantity">
-							数量：
+							QUANTITY: 
 							<button size="mini" @click="changeQuantity(item, -1)"
-								style='height: 30rpx;line-height: 30rpx;'>-</button>
+								style='width: 40rpx; height: 30rpx; line-height: 30rpx; padding: 0; font-size: 30rpx;'>-</button>
 							<text style="margin: 0 10rpx;">{{ item.quantity }}</text>
 							<button size="mini" @click="changeQuantity(item, 1)"
-								style='height: 30rpx;line-height: 30rpx;'>+</button>
+								style='width: 40rpx; height: 30rpx; line-height: 30rpx; padding: 0; font-size: 30rpx;'>+</button>
 						</view>
-						<view class="food-subtotal">小计：¥{{ (item.quantity * item.food.price).toFixed(2) }}</view>
+						<view class="food-subtotal">SUBTOTAL: RM{{ (item.quantity * item.food.price).toFixed(2) }}</view>
 						
 					</view>
-					<button size="mini" type="warn" @click="deleteItem(item)">删除</button>
+					<button size="mini" type="warn" @click="deleteItem(item)">DELETE</button>
 				</view>
 			</block>
 
 			<!-- 结算栏 -->
 			<view class="checkout-bar" style="position: relative;">
-				<view>合计：¥{{ totalPrice.toFixed(2) }}</view>
-				<button type="primary" @click="showPayment = true" :disabled="checkedIds.length === 0" style="position: absolute; right: 0;line-height: 60rpx;">去结算</button>
+				<view>TOTAL: RM{{ totalPrice.toFixed(2) }}</view>
+				<button type="primary" @click="showPayment = true" :disabled="checkedIds.length === 0" style="position: absolute; right: 0; line-height: 60rpx;">PAY</button>
 			</view>
 
 			<!-- 支付弹窗 -->
 			<view v-if="showPayment" class="popup-mask">
 				<view class="popup-box">
-					<u-text text="请扫码支付" size="36rpx" align="center"  />
+					<u-text text="Scan the QR Code to Pay" bold size="30rpx" align="center"  />
 					<image :src="qrCodeUrl" mode="widthFix" style="width: 200rpx" />
 
 					<view class="form-field">
-						<u-text text="名字：" bold></u-text>
-						<input v-model="nickname" placeholder="请输入名字" class="input" />
+						<u-text text="USERNAME：" bold></u-text>
+						<input v-model="nickname" placeholder="ENTER USERNAME" class="input" />
 					</view>
 					<view class="form-field">
-						<u-text text="电话：" bold></u-text>
-						<input v-model="phone" placeholder="请输入电话" class="input" />
+						<u-text text="PHONE NUMBER：" bold></u-text>
+						<input v-model="phone" placeholder="ENTER PHONE NUMBER" class="input" />
 					</view>
 					<view class="form-field">
-						<u-text text="地址：" bold></u-text>
-						<input v-model="address" placeholder="请输入地址" class="input" />
+						<u-text text="ADDRESS：" bold></u-text>
+						<input v-model="address" placeholder="ENTER ADDRESS" class="input" />
 					</view>
 					<view class="form-field">
-						<u-text text="备注：" bold></u-text>
-						<input v-model="remark" placeholder="请输入备注" class="input" />
+						<u-text text="REMARK：" bold></u-text>
+						<input v-model="remark" placeholder="ENTER REMARK" class="input" />
 					</view>
 
 					<view class="form-field">
-						<u-text text="配送时间：" bold></u-text>
+						<u-text text="Select your preferred time: " bold></u-text>
 						<picker mode="selector" :range="timeOptions" @change="onTimeSelect">
 							<view class="input">
-								{{ sendTime || '请选择时间（仅限当前时间之后）' }}
+								{{ sendTime || 'PICK A TIME (Future times only)' }}
 							</view>
 						</picker>
 					</view>
 
 					<view class="popup-buttons" style="text-align: center;width: 100%;display: block;">
-						<button  @click="confirmPayment" style="line-height: 60rpx;display: inline-block;width:300rpx;margin: 0;">确认支付</button>
-						<button @click="showPayment = false" style="line-height: 60rpx;display: inline-block;width:200rpx;margin: 0;">取消</button>
+						<button  @click="confirmPayment" 
+						style="background-color: #007aff; color: #ffffff; line-height: 60rpx; display: inline-block; width: 200rpx; margin: 0;">PAY</button>
+						<button @click="showPayment = false" style="line-height: 60rpx;display: inline-block;width:200rpx;margin: 0;">CANCEL</button>
 					</view>
 				</view>
 			</view>
@@ -122,7 +124,8 @@
 			uni.$u.http.get("/login/info").then(res => {
 				this.nickname = res.data.nickname
 				this.phone = res.data.phone
-				this.address = res.data.address
+				// 如果后台返回的地址为空，则使用 'DAIN IN' 作为默认值
+				this.address = res.data.address|| 'DAIN IN'
 			});
 			uni.$u.http.get("/config/1").then(res => {
 				this.qrCodeUrl = this.$api + 'file/' + res.data.img
@@ -167,7 +170,7 @@
 			changeQuantity(item, delta) {
 				const newQuantity = item.quantity + delta;
 				if (newQuantity < 1) {
-					uni.$u.toast("至少一件");
+					uni.$u.toast("At least one item");
 					return;
 				}
 				uni.$u.http.post(`/cart`, {
@@ -175,19 +178,19 @@
 					id: item.id
 				}).then(() => {
 					item.quantity = newQuantity;
-					uni.$u.toast("修改成功");
+					uni.$u.toast(":D");
 				});
 			},
 			deleteItem(item) {
 				uni.showModal({
-					title: "确认删除",
-					content: "确定删除该商品？",
+					title: "WARNING!",
+					content: "Delete this item?",
 					success: res => {
 						if (res.confirm) {
 							uni.$u.http.delete(`/cart/${item.id}`).then(() => {
 								this.carts = this.carts.filter(c => c.id !== item.id);
 								this.checkedIds = this.checkedIds.filter(id => id !== item.id);
-								uni.$u.toast("删除成功");
+								uni.$u.toast("DELETE successfully!");
 							});
 						}
 					}
@@ -195,7 +198,7 @@
 			},
 			confirmPayment() {
 				if (!this.sendTime) {
-					uni.$u.toast('请选择配送时间');
+					uni.$u.toast('Please select your preferred time.');
 					return;
 				}
 				const today = new Date().toISOString().split('T')[0];
@@ -207,7 +210,7 @@
 					phone: this.phone,
 					address: this.address
 				}).then(() => {
-					uni.$u.toast('支付成功');
+					uni.$u.toast('Your service will begin momentarily :D');
 					this.showPayment = false;
 					this.remark = '';
 					this.sendTime = '';

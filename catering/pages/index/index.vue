@@ -1,12 +1,12 @@
 <template>
 	<view>
 		<!-- 轮播图 -->
-		<u-swiper :list="slideList" keyName="image" showTitle :autoplay="false" circular
+		<u-swiper :list="slideList" keyName="image" showTitle :autoplay="true" circular
 			indicatorMode="line"></u-swiper>
 
 
 		<!-- 美食推荐标题 -->
-		<u-text text="美食上新" align="center" size="50rpx" margin="20rpx 0"></u-text>
+		<u-text text="New Arrivals" color="#FF8C00" align="center" size="70rpx" margin="20rpx 0"></u-text>
 
 		<!-- 美食推荐列表 -->
 		<view v-for="food in foods" :key="food.id" class="food-card">
@@ -16,8 +16,8 @@
 				<u-text class="food-title" :text="food.name" type="primary" bold></u-text>
 				<u-text :text="food.description" lines="2" size="26rpx" color="#666"></u-text>
 				<view class="food-meta">
-					<u-text :text="`价格: ¥${food.price}`" color="#e64340" size="28rpx"></u-text>
-					<u-text :text="`分类: ${food.category.name}`" size="24rpx" color="#999"></u-text>
+					<u-text :text="`PRICE: ¥${food.price}`" color="#e64340" size="30rpx"></u-text>
+					<u-text :text="`CATEGORY: ${food.category.name}`" size="30rpx" color="#999"></u-text>
 				</view>
 			</view>
 		</view>

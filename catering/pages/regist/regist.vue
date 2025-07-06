@@ -1,11 +1,13 @@
 <template>
-	<view style="width: 80%;margin: 100rpx auto;">
+	<view style="width: 80%;margin: 10rpx auto;">
+		<br/>
 		<u-toast ref="uToast"></u-toast>
-		<u-text text="FMP Register" color="orange" align="center" size="30"></u-text>
-		<text>\n<br/></text>
-		<view style="width: 30%;margin: 0 auto;">
+		<u-text text="FMP Register" color="#ffaa00" align="center" size="30"></u-text>
+		<br/>
+		<view style="width: 30%; margin: 0 auto;">
 			<u-avatar :src="loginForm.avatar" size="85" />
-			<u-button @click="chooseAvatar" type="primary" size="small" style="margin-top: 10px; background-color: orange; border-color: #fff;">Upload</u-button>
+			<u-button @click="chooseAvatar" type="primary" size="small" 
+			style="margin-top: 10px; background-color: #ffaa00; border-color: #fff;">Upload</u-button>
 		</view>
 		<u-form @submit="handleLogin" :model="loginForm">
 
@@ -34,13 +36,14 @@
 				<u-input v-model="loginForm.phone" placeholder="Enter your PHONE" />
 			</u-form-item>
 
-		
-
-
-			<u-button type="primary" block @click="handleLogin" :custom-style="{backgroundColor: 'orange', color: '#fff'}">REGISTER</u-button>
+			<u-button type="primary" block @click="handleLogin"
+			style="margin-top: 10px; background-color: #ffaa00; border-color: #fff;"}>REGISTER</u-button>
 
 			<view class="register-link">
-				<u-text @click="goToRegister" text="Have an account? Log in"></u-text>
+				<view @click="goToRegister">
+				    <text style="color: #606266; margin-right: 10px;">Have an account?</text>
+					<text style="color: #ffaa00; font-weight: bold;">Log in</text>	
+				</view>
 			</view>
 		</u-form>
 	</view>
@@ -85,7 +88,7 @@
 									};
 									console.log(this.user.avatar)
 									uni.showToast({
-										title: '头像更新成功',
+										title: 'SUCCESS!',
 										icon: 'success'
 									});
 								}
@@ -99,7 +102,7 @@
 				if (!this.loginForm.account) {
 					this.$refs.uToast.show({
 						type: "error",
-						message: "请输入账号"
+						message: "ENTER ACCOUNT"
 					});
 					return;
 				}
@@ -107,7 +110,7 @@
 				if (!this.loginForm.password) {
 					this.$refs.uToast.show({
 						type: "error",
-						message: "请输入密码"
+						message: "ENTER PASSWORD"
 					});
 					return;
 				}
@@ -117,7 +120,7 @@
 					if (res.code == 200) {
 						this.$refs.uToast.show({
 							type: "success",
-							message: "注册成功"
+							message: "REGISTERED successfully!"
 						});
 						uni.redirectTo({
 							url: "/pages/login/login"
@@ -125,7 +128,7 @@
 					} else {
 						this.$refs.uToast.show({
 							type: "error",
-							message: "注册失败"
+							message: "REGISTERED Failed!"
 						});
 					}
 

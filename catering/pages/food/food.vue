@@ -4,7 +4,7 @@
 			<view v-for="(cat, index) in categorysWithAll" :key="cat.id"
 				:class="['category-item', currentCategoryId === cat.id ? 'active' : '']"
 				@click="changeCategory(cat.id)">
-				{{ cat.remark }}
+				{{ cat.name }}
 			</view>
 		</view>
 
@@ -15,14 +15,14 @@
 				<view class="food-info">
 					<u-text class="food-title" :text="food.name" type="primary" bold></u-text>
 					<view class="food-meta">
-						<u-text :text="'价格: ¥' + food.price" color="#e64340" size="28rpx"></u-text>
-						<u-text :text="'分类: ' + (food.category ? food.category.remark : '')" size="24rpx"
+						<u-text :text="'PRICE: RM' + food.price" color="#e64340" size="30rpx"></u-text>
+						<u-text :text="'CATEGORY: ' + (food.category ? food.category.remark : '')" size="20rpx"
 							color="#999"></u-text>
 					</view>
 					<view class="food-actions">
 						<view class="food-actions">
-							<u-button type="success" size="mini" @click="addToCart(food)">加入购物车</u-button>
-							<u-button type="primary" size="mini" @click="goToDetail(food)">查看详情</u-button>
+							<u-button type="success" size="mini" :custom-style="{ width: '170px', height: '19px', 'font-size': '12px' }" @click="addToCart(food)">ADD TO CART</u-button>
+							<u-button type="primary" size="mini" :custom-style="{ width: '170px', height: '20px', 'font-size': '12px' }" @click="goToDetail(food)">VIEW DETAILS</u-button>
 						</view>
 
 					</view>
@@ -49,7 +49,7 @@
 				return [{
 					id: 0,
 					name: 'All',
-					remark: '全部'
+					remark: 'ALL'
 				}, ...this.categorys];
 			},
 			// 根据当前分类过滤美食
@@ -91,7 +91,7 @@
 					foodId: food.id,
 					quantity: 1 // 默认数量为1
 				}).then(res => {
-					uni.$u.toast('已加入购物车');
+					uni.$u.toast('SUCCESS!');
 				}).catch(err => {
 					uni.$u.toast('添加失败，请稍后重试');
 				});
@@ -110,7 +110,7 @@
 	.left-menu {
 		width: 180rpx;
 		background-color: #f8f8f8;
-		border-right: 1px solid #eee;
+		border-right: 1px solid #FF8C00;
 		padding-top: 20rpx;
 	}
 
@@ -124,7 +124,7 @@
 	.category-item.active {
 		background-color: #fff;
 		font-weight: bold;
-		color: #007aff;
+		color: #FF8C00;
 	}
 
 	.right-content {

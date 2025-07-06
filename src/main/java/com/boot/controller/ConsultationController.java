@@ -88,11 +88,10 @@ public class ConsultationController {
             record.setConsultations(list);
             if ((list.get(list.size() - 1).getQuestion() != null && !list.get(list.size() - 1).getQuestion().equals(""))
                     || list.get(list.size() - 1).getRaw() != null) {
-                record.setStatus("待回复");
-                record.setQuestion(list.get(list.size() - 1).getQuestion() != null ?
-                        list.get(list.size() - 1).getQuestion() : "语音内容");
+                record.setStatus("NEEDS REPLY");
+                record.setQuestion(list.get(list.size() - 1).getQuestion());
             } else {
-                record.setStatus("已回复");
+                record.setStatus("ANSWERED");
             }
         }
         return R.ok(page);

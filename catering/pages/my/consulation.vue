@@ -11,8 +11,7 @@
 						</view>
 						<view class="chat-reply">
 							<view class="chat-bubble right" v-if="item.question">{{ item.question }}</view>
-							<image @tap="playVoice2(item.raw)" v-if="item.raw" src="/static/icon/audio.png"
-								style="width: 160rpx;height: 80rpx;"></image>
+
 						</view>
 					</view>
 				</view>
@@ -22,8 +21,8 @@
 		<!-- 输入框和发送按钮 -->
 		<view class="input-container">
 
-			<input v-model="question" class="chat-input" placeholder="请输入消息" />
-			<button class="send-button" @click="updateData">发送</button>
+			<input v-model="question" class="chat-input" placeholder="Message cannot be empty" />
+			<button class="send-button" @click="updateData">SEND</button>
 		</view>
 	</view>
 </template>
@@ -81,7 +80,7 @@
 			updateData() {
 				if (!this.question.trim()) {
 					uni.showToast({
-						title: "消息不能为空",
+						title: "Message cannot be empty",
 						icon: "none"
 					});
 					return;
@@ -155,19 +154,27 @@
 	}
 
 	.chat-input {
-		width: 80%;
-		padding: 10px;
+		width: 75%;
+		padding: 12px;
 		border-radius: 10px;
 		border: 1px solid #ccc;
 	}
 
-	.send-button {
-		width: 15%;
-		padding: 10px;
-		background-color: #007aff;
-		color: #fff;
-		border-radius: 10px;
-		text-align: center;
-		line-height: 20px;
-	}
+.send-button {
+	width: 15%;
+	padding: 10px;
+	background-color: #007aff;
+	color: #fff;
+	border-radius: 10px;
+
+	/* --- 使用 Flexbox 实现完美居中 --- */
+	display: flex;
+	justify-content: center; /* 文字水平居中 */
+	align-items: center;   /* 文字垂直居中 */
+	
+	/* --- 推荐添加的额外样式 --- */
+	border: none; /* 移除按钮的默认边框 */
+	cursor: pointer; /* 鼠标悬停时显示为手形 */
+	text-align: center; /* 确保在不支持Flexbox的旧浏览器中也能水平居中 */
+}
 </style>

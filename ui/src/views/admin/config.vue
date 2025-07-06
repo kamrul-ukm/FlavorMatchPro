@@ -2,7 +2,7 @@
   <div>
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/' }">INDEX</el-breadcrumb-item>
       <el-breadcrumb-item>{{ this.$route.name }}</el-breadcrumb-item>
     </el-breadcrumb>
 
@@ -17,18 +17,18 @@
         width="55">
       </el-table-column>
 
-      <el-table-column align="center" sortable prop="img" label="图片">
+      <el-table-column align="center" sortable prop="img" label="PIC">
         <template slot-scope="scope">
           <el-image style="width: 100px; height: 100px" :src="$api + 'file/' + scope.row.img"
                     fit="fit"></el-image>
         </template>
       </el-table-column>
-      <el-table-column align="center" sortable prop="name" label="名称"></el-table-column>
+      <el-table-column align="center" sortable prop="name" label="PAYMENT METHOD"></el-table-column>
 
 
-      <el-table-column label="操作" min-width=120>
+      <el-table-column label="OPERATE" min-width=120>
         <template slot-scope="scope">
-          <el-button size="mini" @click="update(scope.row)" icon="el-icon-edit" type="primary">修改
+          <el-button size="mini" @click="update(scope.row)" icon="el-icon-edit" type="primary">EDIT
           </el-button>
         </template>
       </el-table-column>

@@ -55,7 +55,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             orderItems.add(orderItem);
         }
         Orders orders = new Orders();
-        orders.setStatus("已支付");
+        orders.setStatus("PAID");
         orders.setSendTime(cartOrders.getSendTime());
         orders.setRemark(cartOrders.getRemark());
         orders.setTotalPrice(totalMount);

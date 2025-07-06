@@ -1,18 +1,18 @@
 <template>
 	<view class="container">
-		<u-text text="我的订单" size="50rpx" align="center" margin="30rpx 0" />
+		<u-text text="MY ORDER" color="#ffaa00" align="center"  size="70rpx" margin="20rpx 0" />
 
 		<block v-for="order in orders" :key="order.id">
 			<view class="order-card">
 				<view class="order-header">
-					<text class="order-id">订单号：{{ order.id }}</text>
+					<text class="order-id">ORDER NUMBER: {{ order.id }}</text>
 					<text class="order-status">{{ order.status }}</text>
 				</view>
 
 				<view class="order-user">
-					<text>收货人：{{ order.nickname }}</text>
-					<text>电话：{{ order.phone }}</text>
-					<text>地址：{{ order.address }}</text>
+					<text>USERNAME: {{ order.nickname }}</text>
+					<text>PHONE NUMBER: {{ order.phone }}</text>
+					<text>ADDRESS: {{ order.address }}</text>
 				</view>
 
 				<view class="order-items">
@@ -24,8 +24,8 @@
 								<view class="item-name">{{ item.food.name }}</view>
 								<view class="item-desc">{{ item.food.description }}</view>
 								<view class="item-meta">
-									<text>数量：{{ item.quantity }}</text>
-									<text>单价：¥{{ item.price.toFixed(2) }}</text>
+									<text>QUANTITY: {{ item.quantity }}</text>
+									<text>PRICE: RM{{ item.price.toFixed(2) }}</text>
 								</view>
 							</view>
 						</view>
@@ -33,13 +33,13 @@
 				</view>
 
 				<view class="order-meta">
-					<text>配送时间：{{ order.sendTime }}</text>
-					<text>备注：{{ order.remark }}</text>
-					<text>下单时间：{{ order.createdAt }}</text>
-					<text class="total-price">合计：¥{{ order.totalPrice.toFixed(2) }}</text>
-					<view v-if="order.status === '配送中'" class="btn-area">
+					<text>PREFERRED TIME: {{ order.sendTime }}</text>
+					<text>REMARK: {{ order.remark }}</text>
+					<text>ORDER TIME: {{ order.createdAt }}</text>
+					<text class="total-price">TOTAL: {{ order.totalPrice.toFixed(2) }}</text>
+					<view v-if="order.status === 'Out for delivery'" class="btn-area">
 						<u-button type="success" size="medium" shape="circle"
-							@click="confirmFinish(order.id)">确认完成</u-button>
+							@click="confirmFinish(order.id)">CONFIRM :D</u-button>
 					</view>
 
 				</view>
@@ -69,16 +69,16 @@
 			},
 			confirmFinish(orderId) {
 				uni.showModal({
-					title: '提示',
-					content: '确认已完成配送？',
+					title: 'WARNING!',
+					content: 'Have you received your order?',
 					success: (res) => {
 						if (res.confirm) {
 							uni.$u.http.post(`/orders`, {
 								id: orderId,
-								status: "已完成"
+								status: "COMPLETED"
 							}).then(res => {
 								if (res.code === 200) {
-									this.$u.toast('订单已完成');
+									this.$u.toast('ORDER COMPLETED');
 									this.init(); // 刷新订单列表
 								} else {
 									this.$u.toast(res.msg || '操作失败');

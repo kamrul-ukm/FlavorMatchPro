@@ -4,7 +4,7 @@
 		<image src="/static/login-img.png" mode="aspectFit"  style="width: 300rpx;height: 300rpx;margin: 0 auto;display: block;"></image>
 		<u-form @submit="handleLogin" :model="loginForm">
 			<text>\n<br/></text>
-			<u-text text="FMP Login" color="orange" align="center" size="30"></u-text>
+			<u-text text="FMP Login" color="#ffaa00" align="center" size="30"></u-text>
 			<text>\n<br/></text>
 			<u-form-item>
 				<u-input v-model="loginForm.account" placeholder="please input account" />
@@ -14,10 +14,13 @@
 				<u-input type="password" v-model="loginForm.password" placeholder="password" />
 			</u-form-item>
 			
-			<u-button type="info" block @click="handleLogin" :custom-style="{backgroundColor: 'orange', color: '#fff'}">Login</u-button>
+			<u-button type="info" block @click="handleLogin" :custom-style="{backgroundColor: '#ffaa00', color: '#fff'}">Login</u-button>
 			
 			<view class="register-link">
-				<u-text @click="goToRegister" text="Not account? Go Register"></u-text>
+				<view @click="goToRegister">
+					<text style="color: #606266; margin-right: 10px;">No account yet?</text>
+					<text style="color: #ffaa00; font-weight: bold;">Register now</text>	
+					</view>
 			</view>
 		</u-form>
 	</view>
@@ -45,7 +48,7 @@
 				if (!this.loginForm.account) {
 					this.$refs.uToast.show({
 						type: "error",
-						message: "请输入账号"
+						message: "ENTER ACCOUNT"
 					});
 					return;
 				}
@@ -53,7 +56,7 @@
 				if (!this.loginForm.password) {
 					this.$refs.uToast.show({
 						type: "error",
-						message: "请输入密码"
+						message: "ENTER PASSWORD"
 					});
 					return;
 				}
@@ -67,7 +70,7 @@
 						uni.setStorageSync("nickname", res.data.info.nickname)
 						this.$refs.uToast.show({
 							type: "success",
-							message: "登录成功"
+							message: "LOGIN successfully!"
 						});
 						uni.switchTab({
 							url: "/pages/index/index"

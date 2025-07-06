@@ -2,7 +2,7 @@
   <div>
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/' }">INDEX</el-breadcrumb-item>
       <el-breadcrumb-item>{{ this.$route.name }}</el-breadcrumb-item>
     </el-breadcrumb>
 
@@ -18,15 +18,15 @@
         width="55">
       </el-table-column>
 
-      <el-table-column align="center" sortable prop="user.nickname" label="用户"></el-table-column>
+      <el-table-column align="center" sortable prop="user.nickname" label="USERNAME"></el-table-column>
 
-      <el-table-column align="center" sortable prop="question" label="问题"></el-table-column>
+      <el-table-column align="center" sortable prop="question" label="Latest News"></el-table-column>
 
-      <el-table-column align="center" sortable prop="status" label="状态"></el-table-column>
+      <el-table-column align="center" sortable prop="status" label="STATE"></el-table-column>
 
-      <el-table-column label="操作" min-width=120>
+      <el-table-column label="OPERATE" min-width=120>
         <template slot-scope="scope">
-          <el-button size="mini" @click="update(scope.row)" icon="el-icon-edit" type="primary">回复</el-button>
+          <el-button size="mini" @click="update(scope.row)" icon="el-icon-edit" type="primary">REPLY</el-button>
 <!--          <el-button size="mini" @click="deleteData(scope.row.id)" icon="el-icon-delete" type="danger">删除</el-button>-->
         </template>
       </el-table-column>
@@ -46,7 +46,7 @@
     </el-pagination>
 
     <!-- 编辑界面 -->
-    <el-dialog title="回复详情" :visible.sync="editFormVisible" width="60%" @close="closeDialog">
+    <el-dialog title="REPLY DETAIL" :visible.sync="editFormVisible" width="60%" @close="closeDialog">
       <div class="chat-container" ref="chatContainer">
         <div class="chat-content">
           <div v-for="item in editForm.consultations" :key="item.id" class="chat-item">
@@ -66,13 +66,13 @@
       </div>
 
       <el-form label-width="130px"   >
-        <el-form-item label="回复">
+        <el-form-item label="REPLY IN HERE">
           <el-input size="small" v-model="reply" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button size="small" @click="closeDialog">取消</el-button>
-        <el-button size="small" type="primary" :loading="loading" @click="updateData()">保存</el-button>
+        <el-button size="small" @click="closeDialog">CANCEL</el-button>
+        <el-button size="small" type="primary" :loading="loading" @click="updateData()">SEND</el-button>
       </div>
     </el-dialog>
   </div>
@@ -213,7 +213,7 @@ export default {
     updateData() {
 
         if (!this.reply) {
-          this.$message.error("表单验证失败，请检查数据");
+          this.$message.error("Message cannot be empty!");
           return;
         }
 
@@ -229,7 +229,7 @@ export default {
               this.reply = ""
               this.$message({
                 type: 'success',
-                message: '操作成功！'
+                message: 'SENT successfully!'
               })
             } else {
               this.$message({

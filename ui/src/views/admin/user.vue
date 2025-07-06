@@ -2,7 +2,7 @@
   <div>
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">Index</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/' }">INDEX</el-breadcrumb-item>
       <el-breadcrumb-item>{{ this.$route.name }}</el-breadcrumb-item>
     </el-breadcrumb>
 
@@ -12,8 +12,7 @@
         <el-input size="small" v-model="searchForm.nickname" placeholder="ENTER USERNAME"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button size="small" type="primary" icon="el-icon-search" @click="search">SEARCH
-        </el-button>
+        <el-button size="small" type="primary" icon="el-icon-search" @click="search">SEARCH</el-button>
       </el-form-item>
     </el-form>
 
@@ -41,7 +40,6 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="account" label="ACCOUNT"></el-table-column>
 
-
       <el-table-column align="center" sortable prop="nickname" label="USERNAME">
       </el-table-column>
 
@@ -64,17 +62,17 @@
       <el-table-column align="center" sortable prop="remark" label="REMARK"></el-table-column>
 
 
-      <el-table-column label="EDIT" min-width=120>
+      <el-table-column label="OPERATE" min-width=120>
         <template slot-scope="scope">
 
           <el-button size="mini" @click="update(scope.row)" icon="el-icon-edit" type="primary"
                      v-if="scope.row.role != 'admin' || loginUserId == scope.row.id"
-                     style="padding: 10px 29px;">EDIT
+                     style="padding: 7px 29px;">EDIT
           </el-button>
-          <br/>
+          <br/><br/>
           <el-button size="mini" @click="deleteData(scope.row.id)" icon="el-icon-delete" type="danger"
                      v-if="scope.row.role != 'admin' || loginUserId == scope.row.id"
-                     style="padding: 10px 20px;">DELETE
+                     style="padding: 7px 20px;">DELETE
           </el-button>
         </template>
       </el-table-column>
@@ -93,8 +91,6 @@
       :page-sizes="[5, 10, 20, 50]"
       :total="total">
     </el-pagination>
-
-
 
     <!-- 编辑界面 -->
     <el-dialog :title="editForm.id != undefined ? 'EDIT' : 'ADD'" :visible.sync="editFormVisible" width="30%"
@@ -219,7 +215,7 @@ export default {
             this.getData()
             this.$message({
               type: 'success',
-              message: 'ALL DELETE successfully!'
+              message: 'ALL DELETED successfully!'
             })
           } else {
             this.$message({
@@ -307,7 +303,7 @@ export default {
               this.getData()
               this.$message({
                 type: 'success',
-                message: 'SAVE successfully!'
+                message: 'SAVED successfully!'
               })
             } else {
               this.$message({
@@ -333,7 +329,7 @@ export default {
             this.getData()
             this.$message({
               type: 'success',
-              message: 'DELETE successfully!'
+              message: 'DELETED successfully!'
             })
           } else {
             this.$message({

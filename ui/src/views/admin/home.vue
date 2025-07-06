@@ -2,7 +2,7 @@
   <div class="dashboard-container">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
-      <el-breadcrumb-item :to="{ path: '/' }">Index</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/' }">INDEX</el-breadcrumb-item>
       <el-breadcrumb-item>Home</el-breadcrumb-item>
     </el-breadcrumb>
 
@@ -91,7 +91,7 @@ export default {
       this.$axios.post("/user", this.editForm).then(res => {
         if (res.code === 200) {
           this.getData();
-          this.$message.success("SAVE successfully");
+          this.$message.success("SAVED successfully!");
           this.editMode = false;
         } else {
           this.$message.info("修改失败");

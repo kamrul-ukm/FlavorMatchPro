@@ -2,45 +2,49 @@
   <div>
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/' }">INDEX</el-breadcrumb-item>
       <el-breadcrumb-item>{{ this.$route.name }}</el-breadcrumb-item>
     </el-breadcrumb>
 
     <!-- 搜索 -->
     <el-form :inline="true" :model="searchForm" class="search-form">
       <el-form-item>
-        <el-input size="small" v-model="searchForm.name" placeholder="输入昵称/电话/地址"></el-input>
+        <el-input size="small" v-model="searchForm.nickname" placeholder="输入昵称"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+        <el-button size="small" type="primary" icon="el-icon-search" @click="search">SEARCH</el-button>
       </el-form-item>
     </el-form>
 
     <!-- 表格 -->
     <el-table size="small" :data="tableData" v-loading="loading" border style="width: 100%;">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column label="昵称" prop="nickname" align="center"></el-table-column>
-      <el-table-column label="电话" prop="phone" align="center"></el-table-column>
-      <el-table-column label="地址" prop="address" align="center"></el-table-column>
-      <el-table-column label="总价" prop="totalPrice" align="center"></el-table-column>
-      <el-table-column label="状态" prop="status" align="center"></el-table-column>
-      <el-table-column label="下单时间" prop="createdAt" align="center"></el-table-column>
-      <el-table-column label="配送时间" prop="sendTime" align="center"></el-table-column>
-      <el-table-column label="备注" prop="remark" align="center"></el-table-column>
+      <el-table-column label="USERNAME" prop="nickname" align="center"></el-table-column>
+      <el-table-column label="PHONE" prop="phone" align="center"></el-table-column>
+      <el-table-column label="ADDRESS" prop="address" align="center"></el-table-column>
+      <el-table-column label="TOTAL" prop="totalPrice" align="center"></el-table-column>
+      <el-table-column label="STATE" prop="status" align="center"></el-table-column>
+      <el-table-column label="ORDER TIME" prop="createdAt" align="center"></el-table-column>
+      <el-table-column label="DELIVERY TIME" prop="sendTime" align="center"></el-table-column>
+      <el-table-column label="REMARK" prop="remark" align="center"></el-table-column>
 
-      <el-table-column label="操作" align="center" min-width="100">
+      <el-table-column label="OPERATE" align="center" min-width="100">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" icon="el-icon-view" @click="detail(scope.row)">查看详情</el-button>
+          <el-button size="mini" type="primary" icon="el-icon-view" @click="detail(scope.row)"
+                     style="padding: 7px 25px;">DETAIL</el-button>
+          <br/>
           <el-button
             size="mini"
             type="success"
             icon="el-icon-truck"
             @click="deliver(scope.row)"
-            v-if="scope.row.status === '已支付'"
-          >
-            配送
+            style="padding: 7px 15px;"
+            v-if="scope.row.status === 'PAID'">DELIVERY
           </el-button>
-
+          <br/><br/>
+          <el-button size="mini" @click="deleteData(scope.row.id)" icon="el-icon-delete" type="danger"
+                     style="padding: 7px 21px;">DELETE
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -61,14 +65,14 @@
     <!-- 弹窗：订单详情 -->
     <el-dialog title="订单详情" :visible.sync="editFormVisible" width="600px">
       <el-descriptions :column="2" border>
-        <el-descriptions-item label="昵称">{{ editForm.nickname }}</el-descriptions-item>
-        <el-descriptions-item label="电话">{{ editForm.phone }}</el-descriptions-item>
-        <el-descriptions-item label="地址" :span="2">{{ editForm.address }}</el-descriptions-item>
-        <el-descriptions-item label="备注" :span="2">{{ editForm.remark }}</el-descriptions-item>
-        <el-descriptions-item label="下单时间">{{ editForm.createdAt }}</el-descriptions-item>
-        <el-descriptions-item label="配送时间">{{ editForm.sendTime }}</el-descriptions-item>
-        <el-descriptions-item label="状态">{{ editForm.status }}</el-descriptions-item>
-        <el-descriptions-item label="总价">￥{{ editForm.totalPrice }}</el-descriptions-item>
+        <el-descriptions-item label="USERNAME">{{ editForm.nickname }}</el-descriptions-item>
+        <el-descriptions-item label="PHONE NUMBER">{{ editForm.phone }}</el-descriptions-item>
+        <el-descriptions-item label="ADDRESS" :span="2">{{ editForm.address }}</el-descriptions-item>
+        <el-descriptions-item label="REMARK" :span="2">{{ editForm.remark }}</el-descriptions-item>
+        <el-descriptions-item label="ORDER TIME">{{ editForm.createdAt }}</el-descriptions-item>
+        <el-descriptions-item label="DELIVERY TIME">{{ editForm.sendTime }}</el-descriptions-item>
+        <el-descriptions-item label="STATE">{{ editForm.status }}</el-descriptions-item>
+        <el-descriptions-item label="TOTAL">￥{{ editForm.totalPrice }}</el-descriptions-item>
       </el-descriptions>
 
       <el-table
@@ -76,10 +80,10 @@
         size="small"
         style="margin-top: 20px"
         border>
-        <el-table-column label="菜品名称" prop="food.name" align="center" />
-        <el-table-column label="单价" prop="price" align="center" />
-        <el-table-column label="数量" prop="quantity" align="center" />
-        <el-table-column label="小计" align="center">
+        <el-table-column label="FOOD NAME" prop="food.name" align="center" />
+        <el-table-column label="PRICE" prop="price" align="center" />
+        <el-table-column label="QUANTITY" prop="quantity" align="center" />
+        <el-table-column label="SUBTOTAL" align="center">
           <template slot-scope="scope">
             ￥{{ (scope.row.quantity * scope.row.price).toFixed(2) }}
           </template>
@@ -103,7 +107,7 @@ export default {
       },
       // 请求数据参数
       searchForm: {
-        name: ''
+        nickname: ''
       },
       currentPage: 1,
       pageSize: 10,
@@ -131,14 +135,14 @@ export default {
    */
   methods: {
     deliver(row) {
-      this.$confirm(`确定将该订单设置为配送中吗？`, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm(`Mark as Out for Delivery？`, 'WARNING!', {
+        confirmButtonText: 'SURE',
+        cancelButtonText: 'CANCEL',
         type: 'warning'
       }).then(() => {
-        this.$axios.post(`/orders`, {id: row.id, status: '配送中'}).then(res => {
+        this.$axios.post(`/orders`, {id: row.id, status: 'Out for delivery'}).then(res => {
           if (res.code === 200) {
-            this.$message.success("已设置为配送中");
+            this.$message.success("DONE!");
             this.getData(); // 刷新数据
           } else {
             this.$message.error(res.msg || "操作失败");
@@ -147,7 +151,7 @@ export default {
           this.$message.error("请求失败");
         });
       }).catch(() => {
-        this.$message.info("已取消操作");
+          this.$message.info("!CANCEL");
       });
     },
     deleteBatch() {
@@ -189,7 +193,7 @@ export default {
     // 获取数据方法
     getData() {
       this.loading = true
-      this.$axios.get(`/orders/page?pageNum=${this.currentPage}&pageSize=${this.pageSize}&name=${this.searchForm.name}`)
+      this.$axios.get(`/orders/page?pageNum=${this.currentPage}&pageSize=${this.pageSize}&nickname=${this.searchForm.nickname}`)
         .then(res => {
           this.loading = false
           if (res.code === 200) {
@@ -260,7 +264,7 @@ export default {
             this.getData()
             this.$message({
               type: 'success',
-              message: '操作成功！'
+              message: 'DELETED successfully!'
             })
           } else {
             this.$message({

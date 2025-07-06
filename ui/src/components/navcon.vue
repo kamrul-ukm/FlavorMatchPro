@@ -33,7 +33,7 @@ export default {
             localStorage.setItem("username", '')
             this.$message({
               type: 'success',
-              message: 'LOG OUT successfully'
+              message: 'LOGOUT successfully!'
             })
             this.$router.push("/login")
           }, 1000)

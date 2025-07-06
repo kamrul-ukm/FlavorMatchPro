@@ -37,7 +37,7 @@ export default {
   beforeMount () {
     // 弹出登录成功
     this.$message({
-      message: 'LOG IN successfully',
+      message: 'LOGIN successfully!',
       type: 'success'
     })
   }

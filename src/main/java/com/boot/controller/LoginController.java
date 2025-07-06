@@ -50,7 +50,7 @@ public class LoginController {
             return R.ok(map2);
         }
 
-        return R.error("账号或者密码错误！");
+        return R.error("Invalid ACCOUNT or PASSWORD!");
     }
 
     @PostMapping("register")

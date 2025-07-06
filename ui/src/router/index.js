@@ -62,7 +62,7 @@ export default new Router({
         },
         {
           path: "food",
-          name: "FOOD DETAIL",
+          name: "FOOD LIST",
           icon: "el-icon-s-flag",
           component: () => import("@/views/admin/food.vue"),
         },{

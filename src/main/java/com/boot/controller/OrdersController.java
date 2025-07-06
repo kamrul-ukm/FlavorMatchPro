@@ -1,5 +1,6 @@
 package com.boot.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -86,9 +87,12 @@ public class OrdersController {
     }
 
     @GetMapping("/page")
-    public R findPage(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public R findPage(@RequestParam Integer pageNum, @RequestParam Integer pageSize, String nickname) {
         QueryWrapper<Orders> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("id");
+        if (StrUtil.isNotBlank(nickname)) {
+            queryWrapper.like("nickname", nickname);
+        }
         IPage<Orders> page = ordersService.page(new Page<>(pageNum, pageSize), queryWrapper);
         for (Orders record : page.getRecords()) {
             QueryWrapper<OrderItem> orderItemQueryWrapper = new QueryWrapper<>();

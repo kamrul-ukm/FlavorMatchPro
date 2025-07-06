@@ -35,18 +35,6 @@ public R save(@RequestBody Config config) {
         return R.ok();
         }
 
-//删除
-@DeleteMapping("/{id}")
-public R delete(@PathVariable Integer id) {
-    configService.removeById(id);
-        return R.ok();
-        }
-
-@PostMapping("/del/batch")
-public R deleteBatch(@RequestBody List<Integer> ids) {//批量删除
-    configService.removeByIds(ids);
-        return R.ok();
-        }
 
 //查询所有数据
 @GetMapping

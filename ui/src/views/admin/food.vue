@@ -2,25 +2,24 @@
   <div>
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/' }">INDEX</el-breadcrumb-item>
       <el-breadcrumb-item>{{ this.$route.name }}</el-breadcrumb-item>
     </el-breadcrumb>
 
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="searchForm" class="search-form">
       <el-form-item label="">
-        <el-input size="small" v-model="searchForm.name" placeholder="输入名称"></el-input>
+        <el-input size="small" v-model="searchForm.name" placeholder="ENTER FOOD NAME"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索
-        </el-button>
+        <el-button size="small" type="primary" icon="el-icon-search" @click="search">SEARCH</el-button>
       </el-form-item>
     </el-form>
 
     <!--按钮-->
     <el-row style="margin: 10px auto">
-      <el-button type="success" size="mini" @click=update() icon="el-icon-plus">新增</el-button>
-      <el-button size="mini" @click="deleteBatch()" icon="el-icon-delete" type="danger">删除</el-button>
+      <el-button type="success" size="mini" @click=update() icon="el-icon-plus">ADD</el-button>
+      <el-button size="mini" @click="deleteBatch()" icon="el-icon-delete" type="danger">DELETE</el-button>
     </el-row>
 
     <!--列表-->
@@ -33,27 +32,28 @@
         width="55">
       </el-table-column>
 
-      <el-table-column align="center" sortable prop="img" label="图片">
+      <el-table-column align="center" sortable prop="img" label="PIC">
         <template slot-scope="scope">
           <el-image style="width: 100px; height: 100px" :src="$api + 'file/' + scope.row.img"
                     fit="fit"></el-image>
         </template>
+
       </el-table-column>
-      <el-table-column align="center" sortable prop="name" label="美食名称"></el-table-column>
-      <el-table-column align="center" sortable prop="description" label="美食描述"></el-table-column>
-      <el-table-column align="center" sortable prop="price" label="价格（单位：元）"></el-table-column>
-      <el-table-column align="center" sortable prop="category.name" label="分类"></el-table-column>
+      <el-table-column align="center" sortable prop="name" label="FOOD NAME"></el-table-column>
+      <el-table-column align="center" sortable prop="description" label="FOOD DESCRIBE"></el-table-column>
+      <el-table-column align="center" sortable prop="price" label="PRICE (MY)"></el-table-column>
+      <el-table-column align="center" sortable prop="category.name" label="FOOD CATEGORY"></el-table-column>
 
-
-      <el-table-column label="操作" min-width=120>
+      <el-table-column label="OPERATE" min-width=120>
         <template slot-scope="scope">
-          <el-button size="mini" @click="update(scope.row)" icon="el-icon-edit" type="primary">修改
+          <el-button size="mini" @click="update(scope.row)" icon="el-icon-edit" type="primary">EDIT
           </el-button>
-          <el-button size="mini" @click="deleteData(scope.row.id)" icon="el-icon-delete" type="danger">删除
+          <el-button size="mini" @click="deleteData(scope.row.id)" icon="el-icon-delete" type="danger">DELETE
           </el-button>
         </template>
       </el-table-column>
     </el-table>
+
     <!-- 分页组件 -->
     <el-pagination
       style="margin-top: 10px"
@@ -66,12 +66,13 @@
       :page-sizes="[5, 10, 20, 50]"
       :total="total">
     </el-pagination>
+
     <!-- 编辑界面 -->
-    <el-dialog :title="editForm.id == undefined ? '添加' : '修改'" :visible.sync="editFormVisible" width="30%"
+    <el-dialog :title="editForm.id == undefined ? 'ADD' : 'EDIT'" :visible.sync="editFormVisible" width="30%"
                @close='closeDialog()'>
       <el-form label-width="130px" ref="editForm" :model="editForm" :rules="rules">
 
-        <el-form-item label="图片" prop="img">
+        <el-form-item label="PIC" prop="img">
           <el-upload class="avatar-uploader" :action='$api + "file/upload"' :show-file-list="false"
                      :on-success="handleAvatarSuccess">
             <img v-if="editForm.img" :src="$api + 'file/' + editForm.img" class="avatar" width="200">
@@ -79,18 +80,17 @@
           </el-upload>
         </el-form-item>
 
-
-        <el-form-item label="名称" prop="name">
+        <el-form-item label="FOOD NAME" prop="name">
           <el-input size="small" v-model="editForm.name" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="美食描述" prop="description">
+        <el-form-item label="DESCRIBE" prop="description">
           <el-input size="small" v-model="editForm.description" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="价格" prop="price">
+        <el-form-item label="PRICE (MY)" prop="price">
           <el-input size="small" v-model="editForm.price" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="分类" prop="categoryId">
-          <el-select v-model="editForm.categoryId" placeholder="请选择分类">
+        <el-form-item label="CATEGORY" prop="categoryId">
+          <el-select size="small" v-model="editForm.categoryId" placeholder="CHOOSE CATEGORY">
             <el-option
               v-for="item in categorys"
               :key="item.id"
@@ -103,9 +103,9 @@
 
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button size="small" @click='closeDialog()'>取消
+        <el-button size="small" @click='closeDialog()'>CANCEL
         </el-button>
-        <el-button size="small" type="primary" :loading="loading" class="title" @click="updateData()">保存
+        <el-button size="small" type="primary" :loading="loading" class="title" @click="updateData()">SAVE
         </el-button>
       </div>
     </el-dialog>
@@ -134,7 +134,7 @@ export default {
       multipleSelection: [],
       rules: {
         name: [
-          {required: true, message: '请输入', trigger: 'blur'},
+          {required: true, message: 'Please enter', trigger: 'blur'},
           {min: 1, max: 30, message: '长度在 1 到 30 个字符', trigger: 'blur'}
         ],
 
@@ -170,7 +170,7 @@ export default {
             this.getData()
             this.$message({
               type: 'success',
-              message: '操作成功！'
+              message: 'ALL DELETED successfully!'
             })
           } else {
             this.$message({
@@ -240,7 +240,7 @@ export default {
     updateData() {
       this.$refs.editForm.validate((valid) => {
         if (!valid) {
-          this.$message.error("表单验证失败，请检查数据");
+          this.$message.error("Please fill out the form.");
           return;
         }
         this.$axios.post("/food", this.editForm)
@@ -251,7 +251,7 @@ export default {
               this.getData()
               this.$message({
                 type: 'success',
-                message: '操作成功！'
+                message: 'SAVED successfully!'
               })
             } else {
               this.$message({
@@ -262,7 +262,7 @@ export default {
           })
           .catch(err => {
             this.loading = false
-            this.$message.error('操作失败，请稍后再试！')
+            this.$message.error('Please fill out the FROM.')
             this.editFormVisible = false;
           })
       });
@@ -276,7 +276,7 @@ export default {
             this.getData()
             this.$message({
               type: 'success',
-              message: '操作成功！'
+              message: 'DELETED successfully!'
             })
           } else {
             this.$message({

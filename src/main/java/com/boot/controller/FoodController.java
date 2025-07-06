@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.boot.service.CategoryService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,9 +71,12 @@ public class FoodController {
     }
 
     @GetMapping("/page")
-    public R findPage(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public R findPage(@RequestParam Integer pageNum, @RequestParam Integer pageSize,String name) {
         QueryWrapper<Food> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("id");
+        if (StringUtils.isNotBlank(name)) {
+            queryWrapper.like("name", name);
+        }
         IPage<Food> page = foodService.page(new Page<>(pageNum, pageSize), queryWrapper);
         for (Food record : page.getRecords()) {
             record.setCategory(categoryService.getById(record.getCategoryId()));
