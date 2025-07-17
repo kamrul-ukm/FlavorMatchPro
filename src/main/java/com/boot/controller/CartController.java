@@ -1,6 +1,5 @@
 package com.boot.controller;
 
-import com.alipay.api.domain.Car;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -57,7 +56,6 @@ public class CartController {
         } else {
             cartService.updateById(cart);
         }
-
         return R.ok();
     }
 

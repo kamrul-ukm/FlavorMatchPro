@@ -27,7 +27,7 @@
       <el-table-column label="OPERATE" min-width=120>
         <template slot-scope="scope">
           <el-button size="mini" @click="update(scope.row)" icon="el-icon-edit" type="primary">REPLY</el-button>
-<!--          <el-button size="mini" @click="deleteData(scope.row.id)" icon="el-icon-delete" type="danger">删除</el-button>-->
+
         </template>
       </el-table-column>
     </el-table>

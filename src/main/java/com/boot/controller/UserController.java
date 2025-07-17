@@ -71,8 +71,7 @@ public class UserController {
     @GetMapping("/page")
     public R findPage(@RequestParam Integer pageNum,
                       @RequestParam Integer pageSize,
-                      String nickname, String role,
-                      @RequestAttribute(name = "role") String loginRole, @RequestAttribute Integer userId) {
+                      String nickname, String role) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("id");
 
@@ -82,9 +81,7 @@ public class UserController {
         if (StringUtils.isNoneBlank(role)) {
             queryWrapper.eq("role", role);
         }
-        if (loginRole.equals("manage")) {
-            queryWrapper.eq("manage_id", userId);
-        }
+
         IPage<User> page = userService.page(new Page<>(pageNum, pageSize), queryWrapper);
 
         return R.ok(page);

@@ -34,23 +34,13 @@
       </el-table-column>
     </el-table>
     <!-- 分页组件 -->
-    <el-pagination
-      style="margin-top: 10px"
-      background
-      layout="total, sizes, prev, pager, next, jumper"
-      :page-size="pageSize"
-      :current-page="currentPage"
-      @size-change="pageSizeChange"
-      @current-change="currentPageChange"
-      :page-sizes="[5, 10, 20, 50]"
-      :total="total">
-    </el-pagination>
+
     <!-- 编辑界面 -->
-    <el-dialog :title="editForm.id != undefined ? '添加' : '修改'" :visible.sync="editFormVisible" width="30%"
+    <el-dialog :title="editForm.id != undefined ? 'EDIT' : ''" :visible.sync="editFormVisible" width="30%"
                @close='closeDialog()'>
       <el-form label-width="130px" ref="editForm" :model="editForm" :rules="rules">
 
-        <el-form-item label="图片" prop="img">
+        <el-form-item label="PIC" prop="img">
           <el-upload class="avatar-uploader" :action='$api + "file/upload"' :show-file-list="false"
                      :on-success="handleAvatarSuccess">
             <img v-if="editForm.img" :src="$api + 'file/' + editForm.img" class="avatar" width="200">
@@ -59,16 +49,16 @@
         </el-form-item>
 
 
-        <el-form-item label="名称" prop="name">
+        <el-form-item label="NAME" prop="name">
           <el-input size="small" v-model="editForm.name" auto-complete="off"></el-input>
         </el-form-item>
 
 
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button size="small" @click='closeDialog()'>取消
+        <el-button size="small" @click='closeDialog()'>CANCEL
         </el-button>
-        <el-button size="small" type="primary" :loading="loading" class="title" @click="updateData()">保存
+        <el-button size="small" type="primary" :loading="loading" class="title" @click="updateData()">SAVE
         </el-button>
       </div>
     </el-dialog>
@@ -126,7 +116,7 @@ export default {
             this.getData()
             this.$message({
               type: 'success',
-              message: '操作成功！'
+              message: 'ALL DELETED successfully!'
             })
           } else {
             this.$message({
@@ -196,7 +186,7 @@ export default {
     updateData() {
       this.$refs.editForm.validate((valid) => {
         if (!valid) {
-          this.$message.error("表单验证失败，请检查数据");
+          this.$message.error("Please fill out the form.");
           return;
         }
         this.$axios.post("/config", this.editForm)
@@ -207,7 +197,7 @@ export default {
               this.getData()
               this.$message({
                 type: 'success',
-                message: '操作成功！'
+                message: 'SAVED successfully!'
               })
             } else {
               this.$message({
@@ -224,68 +214,12 @@ export default {
       });
     },
 
-    deleteData(id) {
-      this.$axios.delete("/config/" + id)
-        .then(res => {
-          this.loading = false
-          if (res.code == 200) {
-            this.getData()
-            this.$message({
-              type: 'success',
-              message: '操作成功！'
-            })
-          } else {
-            this.$message({
-              type: 'info',
-              message: "操作失败"
-            })
-          }
-        })
-        .catch(err => {
-          this.loading = false
-          this.$message.error('操作失败，请稍后再试！')
-        })
-    }
+
   }
 }
 </script>
 
 <style scoped>
-.search-form {
-  margin-top: 20px;
-}
-
-/* 全局搜索框优化 */
-.search-form {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* 统一按钮间距 */
-.el-row {
-  margin: 10px auto;
-  display: flex;
-  gap: 8px;
-}
-
-/* 按钮优化 */
-.el-button {
-  border-radius: 4px; /* 轻微圆角 */
-  transition: all 0.3s ease-in-out;
-}
-
-.el-button:hover {
-  opacity: 0.85;
-}
-
-/* 表格优化 */
-.el-table {
-  border-radius: 4px;
-  overflow: hidden;
-  background-color: #fff;
-}
 
 .el-table th {
   background-color: #f5f5f5 !important;
@@ -294,17 +228,6 @@ export default {
 
 .el-table td {
   text-align: center;
-}
-
-/* 分页样式 */
-.el-pagination {
-  margin-top: 10px;
-  text-align: center;
-}
-
-/* 对话框优化 */
-.el-dialog {
-  border-radius: 8px;
 }
 
 .dialog-footer {

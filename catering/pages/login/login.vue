@@ -36,8 +36,8 @@
 		data() {
 			return {
 				loginForm: {
-					account: 'Test1',
-					password: '1234567891',
+					account: '',
+					password: '',
 					role: "user"
 				}
 			};
